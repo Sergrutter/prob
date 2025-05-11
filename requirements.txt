@@ -1,0 +1,8 @@
+﻿Flask
+Flask-Login
+Flask-WTF
+Flask-SQLAlchemy
+Werkzeug
+deep-translator
+requests
+rapidfuzz
