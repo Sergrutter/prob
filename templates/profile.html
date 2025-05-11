@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="profile">
+  <h1>Профиль {{ user.username }}</h1>
+  <div class="user-info">
+    <p>Зарегистрирован: {{ user.created_at.strftime('%d.%m.%Y') }}</p>
+    {% if user.bio %}
+      <p class="bio">{{ user.bio }}</p>
+    {% endif %}
+  </div>
+  <h2>Страницы пользователя</h2>
+  <div class="user-pages">
+    {% for page in user.pages %}
+      <div class="page-card">
+        <h3><a href="{{ url_for('page_detail', page_id=page.id) }}">{{ page.title }}</a></h3>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

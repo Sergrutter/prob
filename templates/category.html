@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Категория: {{ category.name }}</h1>
+<div class="pages-list">
+  {% for page in category.pages %}
+    <div class="page-card">
+      <h3><a href="{{ url_for('page_detail', page_id=page.id) }}">{{ page.title }}</a></h3>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

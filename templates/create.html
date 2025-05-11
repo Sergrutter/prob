@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Create New Page{% endblock %}
+{% block content %}
+<h2>Create New Page</h2>
+<form method="POST">
+    <div style="display: flex; flex-direction: column;">
+        <div style="margin-bottom: 10px;">
+            <label for="page_name">Page Name:</label>
+            <input type="text" id="page_name" name="page_name" required>
+        </div>
+        <div>
+            <label for="content">Content:</label>
+            <textarea id="content" name="content" required></textarea>
+        </div>
+    </div>
+    <button type="submit">Save Page</button>
+</form>
+{% endblock %}

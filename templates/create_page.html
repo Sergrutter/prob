@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Создать страницу{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Создать новую страницу</h2>
+    <form method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="mb-3">
+            <label for="page_name" class="form-label">Название:</label>
+            <input type="text" class="form-control" id="page_name" name="page_name" required>
+        </div>
+<div class="form-group">
+  <label for="tags">Теги (через запятую):</label>
+  <input type="text" id="tags" name="tags" class="form-control"
+         value="{{ page.tags|join(', ') if page }}">
+</div>        
+        <div class="mb-3">
+            <label for="content" class="form-label">Содержимое:</label>
+            <textarea class="form-control" id="content" name="content" rows="6" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Сохранить и опубликовать</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Search Pages{% endblock %}
+{% block content %}
+<h2>Найти страницу</h2>
+<form method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div>
+        <label for="search_query">Поисковый запрос:</label>
+        <input type="text" id="search_query" name="search_query" required>
+    </div>
+    <button type="submit">Искать</button>
+</form>
+
+<div id="searchResults"></div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="card shadow-lg border-0 mx-auto" style="max-width: 900px;">
+        {% if page.image_url %}
+        <img src="{{ page.image_url }}" class="card-img-top rounded-top" alt="Изображение по теме"
+             style="object-fit: cover; max-height: 400px;">
+        {% endif %}
+        <div class="card-body bg-light">
+            <h2 class="card-title text-center text-dark mb-3">{{ page.title }}</h2>
+            <h6 class="card-subtitle text-center text-muted mb-4">Автор: {{ page.author.username }}</h6>
+            <p class="card-text text-dark" style="white-space: pre-line; font-size: 1.1rem;">{{ page.content }}</p>
+
+            {% if current_user.is_authenticated and current_user.id == page.user_id %}
+            <div class="text-end mt-4">
+                <a href="{{ url_for('edit_page', page_id=page.id) }}" class="btn btn-outline-primary">Редактировать</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card shadow-sm mt-4 mx-auto" style="max-width: 900px;">
+        <div class="card-body">
+            <h4 class="mb-4">Обсуждение</h4>
+
+            {% if current_user.is_authenticated %}
+            <form method="POST">
+                <div class="mb-3">
+                    <textarea class="form-control" name="comment" rows="3" placeholder="Оставьте комментарий..."
+                              required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Отправить</button>
+            </form>
+            {% else %}
+            <p>Чтобы оставить комментарий, <a href="{{ url_for('login') }}">войдите</a>.</p>
+            {% endif %}
+
+            <hr>
+
+            {% for comment in page.comments %}
+            <div class="mb-3 p-3 border rounded bg-white shadow-sm">
+                <div class="fw-bold">{{ comment.user.username }}</div>
+                <small class="text-muted">{{ comment.created_at.strftime('%d.%m.%Y %H:%M') }}</small>
+                <p class="mt-2 mb-0">{{ comment.content }}</p>
+            </div>
+            {% else %}
+            <p class="text-muted">Пока нет комментариев. Будьте первым!</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

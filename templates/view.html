@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_name }}{% endblock %}
+
+{% block content %}
+<div>
+    <h2>{{ page_name }}</h2>
+    <div>
+        {{ content|safe }}
+    </div>
+    <p>
+        <a href="{{ url_for('create_page') }}?edit={{ page_name }}">Edit this page</a>
+    </p>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Результаты поиска{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Результаты поиска: <em>"{{ query }}"</em></h2>
+
+    {% if pages %}
+        <div class="row">
+            {% for page in pages %}
+                <div class="col-md-6 mb-4">
+                    <div class="card bg-dark text-white border-light shadow-sm h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="{{ url_for('page_detail', page_id=page.id) }}" class="link-light text-decoration-none">
+                                    {{ page.title }}
+                                </a>
+                            </h4>
+                            <h6 class="card-subtitle text-muted mb-2">Автор: {{ page.author.username }}</h6>
+                            <p class="card-text">{{ page.content[:100] }}...</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-warning text-center" role="alert">
+            Ничего не найдено по вашему запросу.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Главная страница</h1>
+
+    <div class="d-flex justify-content-center mb-4">
+        <form method="POST" action="{{ url_for('search') }}" class="d-flex w-75">
+            <input type="text" name="search_query" class="form-control me-2" placeholder="Поиск страниц..." required>
+            <button type="submit" class="btn btn-light">Искать</button>
+        </form>
+        <a href="{{ url_for('random_page') }}" class="btn btn-outline-info ms-3">Случайная статья</a>
+    </div>
+
+    <h2 class="mb-3">Все страницы:</h2>
+    <div class="row">
+        {% if pages %}
+            {% for page in pages %}
+                <div class="col-md-6 mb-4">
+                    <div class="card bg-dark text-light border-light h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{{ url_for('page_detail', page_id=page.id) }}" class="text-info text-decoration-none">
+                                    {{ page.title }}
+                                </a>
+                            </h5>
+                            <h6 class="card-subtitle mb-2 text-muted">
+                                Автор: {{ page.author.username }}
+                                {% if page.created_at %}
+                                    • {{ page.created_at.strftime('%Y-%m-%d') }}
+                                {% endif %}
+                            </h6>
+                            <p class="card-text">{{ page.content[:120] }}...</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-muted">Пока нет созданных страниц.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
